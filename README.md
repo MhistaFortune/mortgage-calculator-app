@@ -1,181 +1,125 @@
-# Frontend Mentor - Mortgage repayment calculator solution
+# Frontend Mentor - Mortgage Repayment Calculator
 
-This is a solution to the [Mortgage repayment calculator challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/mortgage-repayment-calculator-Galx1LXK73). Frontend Mentor challenges help you improve your coding skills by building realistic projects. 
+![Design preview for the Mortgage repayment calculator coding challenge](./design/desktop-design-completed.jpg)
 
----
+## Welcome! 👋
+
+This is a solution to the [Mortgage repayment calculator challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/mortgage-repayment-calculator-Galx1LXK73).
 
 ## Table of Contents
 
 - [Overview](#overview)
-- [The challenge](#the-challenge)
-- [Features](#features)
-- [Screenshot](#screenshot)
-- [Links](#links)
-- [Technologies Used](#technologies-used)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Project Structure](#project-structure)
-- [Contributing](#contributing)
-- [License](#license)
+  - [The Challenge](#the-challenge)
+  - [Key Features](#key-features)
+  - [Screenshots](#screenshots)
+  - [Links](#links)
+- [My Process](#my-process)
+  - [Built With](#built-with)
+  - [What I Learned](#what-i-learned)
+  - [Accessibility & UX](#accessibility--ux)
+- [Getting Started](#getting-started)
+  - [Installation](#installation)
+  - [Usage](#usage)
+- [PWA Support](#pwa-support)
 - [Author](#author)
-- [Acknowledgments](#acknowledgments)
-
----
 
 ## Overview
 
-A simple and interactive web application that calculates monthly mortgage repayments based on user inputs such as loan amount, interest rate, and loan term. The application supports both **Repayment** and **Interest-Only** mortgage types and provides dynamic error handling with visual feedback.
-
----
+The Mortgage Repayment Calculator is a high-performance web tool designed to help users quickly estimate their financial commitments. Built with a focus on speed, clarity, and accessibility, this application provides an interactive experience that works seamlessly across all devices. By leveraging Progressive Web App (PWA) technology, users can install the tool directly for instant offline access.
 
 ### The Challenge
 
-While working on this project, I encountered the following challenges:
-1. **Dynamic Error Handling:**
-    Implementing real-time error feedback for invalid inputs and ensuring icons and fields visually reflected errors.
-2. **Radio Button Validation:**
-    Providing visual feedback for unselected mortgage types while maintaining a clean design.
-3. **Responsive Design:**
-    Ensuring the layout worked seamlessly across different screen sizes, especially for mobile devices.
-4. **Clear Button Functionality:**
-    Resetting all inputs, error messages, and results without breaking the user experience.
-5. **Mortgage Calculation Logic:**
-    Debugging edge cases and ensuring accurate results for both Repayment and Interest-Only mortgage types.
+Users should be able to:
 
----
+- Input mortgage amount, term, interest rate, and type.
+- View calculated monthly and total repayments.
+- See form validation errors if fields are empty or invalid.
+- Clear the form and results with a single click.
+- Experience a fully responsive layout.
+- Install the app on mobile devices as a Progressive Web App (PWA).
 
-## Features
+### Key Features
 
-- **Dynamic Mortgage Calculations**:
-  - Supports both **Repayment** and **Interest-Only** mortgage types.
-  - Calculates monthly repayments and total repayment over the loan term.
-- **Error Handling**:
-  - Highlights invalid inputs with red borders and displays error messages.
-  - Icons turn red with a white foreground for invalid fields.
-  - Radio buttons are outlined in red if no option is selected.
-- **Responsive Design**:
-  - Fully responsive and works seamlessly on desktop, tablet, and mobile devices.
-- **Clear Functionality**:
-  - Resets all inputs, error messages, and results with a single click.
-
----
+- **Interactive Calculations**: Real-time results for both Repayment and Interest-Only mortgages.
+- **Improved Data Entry**: Automated thousand separators (commas) for the mortgage amount field.
+- **Modern Responsive Design**: Centered layout with smooth transitions between mobile, tablet, and desktop views.
+- **Accessibility (A11y)**: ARIA live regions ensure screen readers announce results instantly upon calculation.
+- **Progressive Web App**: Installable on iOS/Android for a native-like experience.
 
 ### Screenshots
 
-![Screenshot of completed desktop form(Interest)](screenshots/screenshot-completed-interest-desktop.png)
-![Screenshot of completed mobile form(Interest)](screenshots/screenshot-completed-interest-mobile.png)
-![Screenshot of completed desktop form(Repayment)](screenshots/screenshot-completed-repayment-desktop.png)
-![Screenshot of completed mobile form(Repayment)](screenshots/screenshot-completed-repayment-mobile.png)
-![Screenshot of empty desktop form](screenshots/screenshot-empty-desktop.png)
-![Screenshot of empty mobile form](screenshots/screenshot-empty-mobile.png)
-![Screenshot of error in desktop](screenshots/screenshot-error-desktop.png)
-![Screenshot of error in Mobile](screenshots/screenshot-error-mobile.png)
-
----
+| ![Desktop View](./screenshots/desktop-view.jpeg)
+| ![Mobile View](./screenshots/mobile-view.jpeg) 
+| ![Tablet View](./screenshots/tablet-view.jpeg) |
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://github.com/Mhista-Fortune/Mortgage-Calculator)
-- Live Site URL: [Add live site URL here](https://mortgage-calculator-web-app.netlify.app/)
+- Solution URL: [GitHub Repository](https://github.com/MhistaFortune/mortgage-calculator-app)
+- Live Site URL: [Vercel Demo](https://mortgage-calculator-app-six.vercel.app/)
 
----
+## My Process
 
-## Technologies Used
+### Built With
 
-- **HTML**: For structuring the web page.
-- **CSS**: For styling the application, including responsive design and error feedback.
-- **JavaScript**: For dynamic calculations, error handling, and DOM manipulation.
+- **React 19** - UI Framework
+- **TypeScript** - For type-safe development
+- **Vite 7** - Lightning-fast build tool
+- **CSS3** - Custom properties and Flexbox/Grid for layout
+- **Vite PWA Plugin** - For service worker and manifest generation
+- **Intl.NumberFormat** - For localized number formatting
 
----
+### What I Learned
 
-## Installation
+One of the highlights was implementing a custom formatter for the mortgage amount that inserts commas as you type, without breaking the underlying decimal logic:
 
-To run the project locally, follow these steps:
+```typescript
+const formatNumber = (value: string) => {
+  if (!value) return '';
+  const parts = value.split('.');
+  parts[0] = new Intl.NumberFormat('en-GB').format(Number(parts[0].replace(/,/g, '')));
+  return parts.join('.');
+};
+```
 
-1. **Clone the Repository**:
+### Accessibility & UX
+
+To make the app "top notch," I focused on:
+1. **ARIA Live Regions**: Used `aria-live="polite"` so screen readers announce results without the user having to manually find them.
+2. **Semantic HTML**: Proper use of `<main>`, `<section>`, and `<header>` for better structure.
+3. **PWA Integration**: Enabling users to keep the tool on their home screen for easy access.
+
+## Getting Started
+
+### Installation
+
+1. Clone the repository:
    ```bash
    git clone https://github.com/Mhista-Fortune/Mortgage-Calculator.git
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Run the development server:
+   ```bash
+   npm run dev
+   ```
 
-2. **Navigate to the Project Directory**:
-cd mortgage-repayment-calculator
+### Usage
 
-3. **Open the Application:**
-Open the index.html file in your browser.
+- **Mortgage Amount**: Enter the total loan amount (commas are added automatically).
+- **Mortgage Term**: Enter the duration in years.
+- **Interest Rate**: Enter the annual percentage rate (APR).
+- **Mortgage Type**: Select between "Repayment" (principal + interest) or "Interest Only".
+- **Calculate**: Click to see your results announced and displayed.
 
----
+## PWA Support
 
-## Usage
-
-- Enter Input Values:
-- Enter the Mortgage Amount (e.g., £200,000).
-- Enter the Interest Rate (e.g., 5%).
-- Enter the Mortgage Term in years (e.g., 25 years).
-**Select Mortgage Type:**
-- Choose between Repayment or Interest Only.
-**Calculate Repayments:**
-- Click the Calculate Repayments button to view the  results.
-- The monthly repayment and total repayment will be displayed in the results section.
-**Clear All:**
-- Click the Clear All button to reset the form and results.
-
----
-
-## Project Structure
-
-Mortgage Repayment Calculator Project/
-│
-├── index.html          # Main HTML file
-├── style.css           # CSS file for styling
-├── index.js            # JavaScript file for functionality
-├── assets/             # Folder for images and icons
-│   ├── images/
-│   └── icons/
-└── [README.md](http://_vscodecontentref_/0)           # Project documentation
-
----
-
-## Contributing
-
-Contributions are welcome! If you’d like to contribute to this project, please follow these steps:
-
-1. **Fork the Repository:**
-    Click the "Fork" button at the top of this repository.
-
-2. **Clone Your Fork:**
-    git clone https://github.com/Mhista-Fortune/Mortgage-Calculator.git
-
-3. **Create a New Branch:**
-    git checkout -b feature-name
-
-4. **Make Changes:**
-    git add .
-    git commit -m "Add your message here"
-
-5. **Push Changes:**
-    git push origin feature-name
-
-6. **Submit a Pull Request:**
-    Open a pull request to the main repository.
-
----
+The app is fully installable! 
+- **iOS**: Tap "Share" and "Add to Home Screen".
+- **Android**: Tap the "Add to Home Screen" prompt or the three-dot menu in Chrome.
 
 ## Author
 
-- Website - [Add your name here](https://mortgage-calculator-web-app.netlify.app/)
-- Frontend Mentor - [Mhista Fortune](https://www.frontendmentor.io/profile/Mhista-Fortune)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
-
----
-
-## License
-
-This project is licensed under the MIT License.
-You are free to use, modify, and distribute this project as long as proper credit is given. See the LICENSE file for more details.
-
----
-
-## Acknowledgments
-
-Frontend Mentor: For providing the project idea and inspiration.
-Icons: Icons used in the project are from Font Awesome.
-You: For taking the time to explore and use this project!
+- Website - [Mhista Fortune](https://mortgage-calculator-web-app.netlify.app/)
+- Frontend Mentor - [@Mhista-Fortune](https://www.frontendmentor.io/profile/Mhista-Fortune)
