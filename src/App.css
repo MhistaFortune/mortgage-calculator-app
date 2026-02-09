@@ -195,14 +195,9 @@
   font-size: 1.1rem;
   border: none;
   margin-top: 16px;
-  width: 100%;
+  width: fit-content;
+  white-space: nowrap;
   transition: background-color 0.2s;
-}
-
-@media (min-width: 900px) {
-  .submit-btn {
-    width: fit-content;
-  }
 }
 
 .submit-btn:hover {
