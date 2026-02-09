@@ -1,5 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
+import iconCalculator from './assets/icon-calculator.svg'
+import illustrationEmpty from './assets/illustration-empty.svg'
 
 interface FormState {
   amount: string;
@@ -23,6 +25,32 @@ function App() {
 
   const [results, setResults] = useState<Results | null>(null);
   const [errors, setErrors] = useState<Partial<Record<keyof FormState, string>>>({});
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const [showInstallBanner, setShowInstallBanner] = useState(false);
+
+  useEffect(() => {
+    const handler = (e: any) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+      setShowInstallBanner(true);
+    };
+
+    window.addEventListener('beforeinstallprompt', handler);
+
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handler);
+    };
+  }, []);
+
+  const handleInstallClick = async () => {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') {
+      setDeferredPrompt(null);
+      setShowInstallBanner(false);
+    }
+  };
 
   const handleClear = () => {
     setForm({ amount: '', term: '', rate: '', type: '' });
@@ -83,6 +111,15 @@ function App() {
 
   return (
     <main className="app-container">
+      {showInstallBanner && (
+        <div className="install-banner">
+          <p>Add Mortgage Calculator to your home screen for quick access!</p>
+          <div className="banner-actions">
+            <button className="install-confirm" onClick={handleInstallClick}>Add to Home Screen</button>
+            <button className="install-close" onClick={() => setShowInstallBanner(false)}>Close</button>
+          </div>
+        </div>
+      )}
       <section className="calculator-card">
         <div className="form-section">
           <header className="form-header">
@@ -166,7 +203,7 @@ function App() {
             </div>
 
             <button type="submit" className="submit-btn outline">
-              <img src="/icon-calculator.svg" alt="" />
+              <img src={iconCalculator} alt="" />
               Calculate Repayments
             </button>
           </form>
@@ -175,7 +212,7 @@ function App() {
         <div className="results-section" aria-live="polite">
           {!results ? (
             <div className="empty-state">
-              <img src="/illustration-empty.svg" alt="" />
+              <img src={illustrationEmpty} alt="" />
               <h2>Results shown here</h2>
               <p>
                 Complete the form and click "calculate repayments" to see what
