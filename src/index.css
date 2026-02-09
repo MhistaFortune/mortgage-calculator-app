@@ -31,6 +31,13 @@ body {
   padding: 40px 20px;
 }
 
+@media (max-width: 680px) {
+  body {
+    padding: 0;
+    align-items: flex-start;
+  }
+}
+
 #root {
   width: 100%;
 }

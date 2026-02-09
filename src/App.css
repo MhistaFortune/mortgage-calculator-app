@@ -195,9 +195,23 @@
   font-size: 1.1rem;
   border: none;
   margin-top: 16px;
-  width: fit-content;
+  width: 100%;
   white-space: nowrap;
-  transition: background-color 0.2s;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+@media (min-width: 900px) {
+  .submit-btn {
+    width: fit-content;
+  }
+}
+
+@media (max-width: 400px) {
+  .submit-btn {
+    padding: 14px 24px;
+    font-size: 1rem;
+    gap: 8px;
+  }
 }
 
 .submit-btn:hover {
@@ -319,5 +333,6 @@ hr {
   .app-container {
     max-width: 100%;
     border-radius: 0;
+    box-shadow: none;
   }
 }
